@@ -1,0 +1,27 @@
+{
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/index.js"
+  },
+  "dependencies": {
+    "dsp.js": "^1.0.1",
+    "express": "^4.16.2",
+    "fili": "^2.0.1",
+    "openbci": "^2.2.0",
+    "socket.io": "^2.0.4",
+    "topogrid": "^1.0.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "rimraf": "^2.6.2"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OpenBCI socket client</title>
+</head>
+
+<body>
+<div id="app">
+  {{ message }}
+
+  <br>
+
+  <select v-model="selected">
+    <option v-for="option in options" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <span>Текущий ивент: {{ selected }}</span>
+
+  <br>
+
+  <button @click="runSocket(selected)">Лог в консоль браузера</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script>
+  const socket = io('http://localhost:3333')
+
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Выбрать нужный ивент',
+      selected: 'bci:raw',
+      options: [
+        {text: 'Raw', value: 'bci:raw'},
+        {text: 'FFT', value: 'bci:fft'},
+        {text: 'Time series', value: 'bci:time'},
+        {text: 'Accel', value: 'bci:motion'},
+        {text: 'Topo', value: 'bci:topo'}
+      ]
+    },
+    methods: {
+      runSocket (eventName) {
+        // в метод либы сокетклиента параметром кидаю имя события и получаю данные
+        socket.on(eventName, (data) => (
+          console.log(data)
+        ))
+      }
+    }
+  })
+</script>
+</body>
+
+</html>
