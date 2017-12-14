@@ -6,7 +6,7 @@
     "start": "npm run build && node dist/index.js"
   },
   "dependencies": {
-    "dsp.js": "^1.0.1",
+    "dsp.js": "git+https://github.com/kxnes/dsp.js.git",
     "express": "^4.16.2",
     "fili": "^2.0.1",
     "openbci": "^2.2.0",
