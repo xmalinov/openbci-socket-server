@@ -10,7 +10,7 @@
     "express": "^4.16.2",
     "fili": "^2.0.1",
     "openbci": "^2.2.0",
-    "socket.io": "^2.0.4",
+    "socket.io": "^1.7.4",
     "topogrid": "^1.0.6"
   },
   "devDependencies": {
