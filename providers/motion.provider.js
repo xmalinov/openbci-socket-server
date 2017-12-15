@@ -13,11 +13,9 @@ class Motion {
   capture ({auxData}) {
     if (Utils.signal.isSimulated()) {
       this.simulate()
-    } else {
-      if (this.hasMotion(auxData)) {
-        this.auxData = this.amplify(auxData)
-        this.emit()
-      }
+    } else if (this.hasMotion(auxData)) {
+      this.auxData = this.amplify(auxData)
+      this.emit()
     }
   }
 

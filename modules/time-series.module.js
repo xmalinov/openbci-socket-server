@@ -34,6 +34,7 @@ class TimeSeries {
     })
   }
 
+  // в filter и trim ничего не происходит, это норма???
   filter () {
     this.timeSeries.forEach((signal) => {
       signal = Utils.filter.highpass(signal)
@@ -48,7 +49,8 @@ class TimeSeries {
 
   signalToAmplitudes (signal) {
     this.amplitudes = signal.map((channel) => {
-      let microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0]
+      const microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0]
+
       return `${Math.round(microvolts)} ${constants.units.microvolts}`
     })
   }

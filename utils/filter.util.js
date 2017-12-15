@@ -15,21 +15,26 @@ const filter = {
   },
 
   apply (filter) {
-    if (!filter) return
-    let [id, value] = filter.split(':')
+    if (!filter) {
+      return
+    }
+
+    const [id, value] = filter.split(':')
+
     this.state[id] = value
   },
 
   process (signal) {
     Object.keys(this.state).forEach((key) => {
-      let filter = key.toLowerCase()
+      const filter = key.toLowerCase()
+
       if (filter in this && typeof this[filter] === 'function') {
         // @TODO: apply all filters dynamically
         // signal = this[filter](signal);
       }
     })
-    signal = this.notch(signal)
-    return signal
+
+    return this.notch(signal)
   },
 
   highpass (signal) {
@@ -51,7 +56,9 @@ const filter = {
   },
 
   notch (signal) {
-    if (this.state.NOTCH === 'NONE') return signal
+    if (this.state.NOTCH === 'NONE') {
+      return signal
+    }
 
     const notchValue = parseInt(this.state.NOTCH)
     const iirCalculator = new Fili.CalcCascades()
@@ -108,22 +115,27 @@ const filter = {
   },
 
   filterBand (spectrums, labels, range) {
-    if (!spectrums) return console.log('Please provide spectrums')
-    spectrums = spectrums.map(function (channel) {
-      return channel.filter(function (spectrum, index) {
+    if (!spectrums) {
+      console.log('Please provide spectrums')
+
+      return
+    }
+
+    const filteredSpectrums = spectrums.map((channel) => {
+      return channel.filter((spectrum, index) => {
         return labels[index] >= range[0] && labels[index] <= range[1]
       })
     })
-    spectrums = [spectrums.map(function (channel) {
-      if (channel.length) {
-        return channel.reduce(function (a, b) {
-          return a + b
-        }) / channel.length
-      } else return channel
+
+    const resultSpectrums = [filteredSpectrums.map((channel) => {
+      return channel.length
+        ? channel.reduce((a, b) => a + b) / channel.length
+        : channel
     })]
+
     return {
-      spectrums: spectrums,
-      labels: labels
+      spectrums: resultSpectrums,
+      labels
     }
   }
 }

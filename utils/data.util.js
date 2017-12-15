@@ -2,11 +2,7 @@
 
 const data = {
   parseObjectAsArray (obj) {
-    let array = []
-    Object.keys(obj).forEach((key) => {
-      array.push(obj[key])
-    })
-    return array
+    return Object.keys(obj).reduce((result, key) => [...result, obj[key]], [])
   },
 
   /**
