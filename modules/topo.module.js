@@ -21,7 +21,7 @@ class Topo {
   }
 
   signalToGrid (signal) {
-    let grid = []
+    const grid = []
 
     signal.forEach((channel) => {
       grid.push(channel[channel.length - 1])

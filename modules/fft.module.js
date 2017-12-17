@@ -31,7 +31,9 @@ class FFT {
   signalsToFFT (signals) {
     signals.forEach((signal, index) => {
       signal = Utils.filter.process(signal)
-      let fft = new dsp.FFT(this.bufferSize, this.sampleRate)
+
+      const fft = new dsp.FFT(this.bufferSize, this.sampleRate)
+
       fft.forward(signal)
       this.spectrums[index] = Utils.data.parseObjectAsArray(fft.spectrum)
       this.spectrums[index] = Utils.signal.voltsToMicrovolts(this.spectrums[index], true)
@@ -54,9 +56,12 @@ class FFT {
   filterLabels () {
     // Skip every 8, add uni (too many labels issue)
     this.labels = this.labels.map((label, index, labels) => {
-      let eighth = index % constants.scale.skipLabels === 0
-      let last = index === (labels.length - 1)
-      return eighth || last ? `${label} ${constants.units.hertz}` : ``
+      const eighth = index % constants.scale.skipLabels === 0
+      const last = index === (labels.length - 1)
+
+      return eighth || last
+        ? `${label} ${constants.units.hertz}`
+        : ``
     })
   }
 

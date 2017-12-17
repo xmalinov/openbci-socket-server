@@ -11,9 +11,12 @@ class Signal {
   constructor ({io}) {
     this.io = io
     this.emitter = new SignalEmitter()
-    this.bufferSize = constants.signal.bufferSize
-    this.windowSize = constants.signal.windowSize
-    this.sampleRate = constants.signal.sampleRate
+
+    const {bufferSize, windowSize, sampleRate} = constants.signal;
+
+    this.bufferSize = bufferSize
+    this.windowSize = windowSize
+    this.sampleRate = sampleRate
     this.signals = [[], [], [], [], [], [], [], []]
     this.sampleNumber = 0
     this.init()
@@ -56,11 +59,9 @@ class Signal {
   }
 
   setScale () {
-    if (Utils.signal.isSimulated()) {
-      this.scale = constants.scale.simulated
-    } else {
-      this.scale = constants.scale.global
-    }
+    this.scale = Utils.signal.isSimulated()
+      ? constants.scale.simulated
+      : constants.scale.global
   }
 }
 
