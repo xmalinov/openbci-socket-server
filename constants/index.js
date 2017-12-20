@@ -42,7 +42,7 @@ const constants = {
     skip: 2 //
   },
   events: {
-    raw: 'bci:raw',
+    rawSignal: 'bci:rawSignal',
     fft: 'bci:fft',
     topo: 'bci:topo',
     time: 'bci:time',

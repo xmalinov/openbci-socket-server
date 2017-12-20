@@ -25,6 +25,8 @@ const Connector = new Connectors.Serialport({
 const Signal = new Providers.Signal({io})
 const Motion = new Providers.Motion({io})
 
+const Raw = new Providers.Raw({io})
+
 server.listen(port, () => {
   console.log('[INFO] Listening on *:' + port)
 })
@@ -33,12 +35,13 @@ Connector.start().then(() => {
   const TimeSeries = new Modules.TimeSeries({Signal})
   const FFT = new Modules.FFT({Signal})
   const Topo = new Modules.Topo({Signal})
-  const Raw = new Modules.Raw({Signal})
+  const RawData = new Modules.RawData({Raw})
 })
 
 Connector.stream((data) => {
   Signal.buffer(data)
   Motion.capture(data)
+  Raw.capture(data)
 })
 console.log('[INFO] Server start...')
 
